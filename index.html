@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Uma carta para você</title>
+
+    <!-- Fonte com aparência de escrita à mão -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Georgia, serif;
+        }
+
+
+        /* =========================
+           PRIMEIRA TELA
+        ========================= */
+
+        #inicio {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-color: #eee4d5;
+        }
+
+        .botao-abrir {
+            padding: 17px 38px;
+
+            background-color: #c9ad91;
+            color: #fffaf4;
+
+            border: none;
+            border-radius: 35px;
+
+            font-family: Georgia, serif;
+            font-size: 19px;
+            letter-spacing: 0.3px;
+
+            cursor: pointer;
+
+            box-shadow: 0 4px 12px rgba(100, 75, 50, 0.12);
+
+            transition: all 0.3s ease;
+        }
+
+        .botao-abrir:hover {
+            background-color: #b99a7d;
+            transform: translateY(-3px);
+
+            box-shadow: 0 7px 16px rgba(100, 75, 50, 0.16);
+        }
+
+
+        /* =========================
+           SEGUNDA TELA - PAPEL
+        ========================= */
+
+        #carta {
+            display: none;
+
+            min-height: 100vh;
+            width: 100%;
+
+            padding: 0;
+
+            background-color: #f8f3e6;
+
+            /* Linhas do caderno */
+            background-image:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0px,
+                    transparent 39px,
+                    #c5d1d4 40px
+                );
+
+            background-position: 0 15px;
+        }
+
+
+        /* Margem e área de escrita */
+
+        .area-escrita {
+            min-height: 100vh;
+
+            padding-top: 65px;
+            padding-bottom: 60px;
+
+            padding-left: clamp(55px, 12vw, 120px);
+            padding-right: clamp(20px, 8vw, 80px);
+
+            position: relative;
+        }
+
+        /* Linha vermelha lateral */
+
+        .area-escrita::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            bottom: 0;
+
+            left: 38px;
+
+            width: 1px;
+
+            background-color: #dbaaaa;
+            opacity: 0.8;
+        }
+
+
+        /* =========================
+           TEXTO MANUSCRITO
+        ========================= */
+
+        .texto-carta {
+
+            font-family: 'Caveat', cursive;
+
+            font-size: clamp(25px, 5vw, 34px);
+
+            font-weight: 500;
+
+            line-height: 40px;
+
+            color: #39372f;
+
+            white-space: pre-wrap;
+
+            overflow-wrap: break-word;
+        }
+
+
+        /* =========================
+           AJUSTES PARA CELULAR
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            #inicio {
+                padding: 20px;
+            }
+
+            .botao-abrir {
+                font-size: 18px;
+                padding: 16px 34px;
+            }
+
+            .area-escrita {
+                padding-top: 55px;
+                padding-bottom: 45px;
+
+                padding-left: 58px;
+                padding-right: 22px;
+            }
+
+            .area-escrita::before {
+                left: 38px;
+            }
+
+            .texto-carta {
+                font-size: 27px;
+                line-height: 40px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- PRIMEIRA TELA -->
+
+    <section id="inicio">
+
+        <button class="botao-abrir"
+                onclick="abrirCarta()">
+
+            Abrir a carta
+
+        </button>
+
+    </section>
+
+
+
+    <!-- SEGUNDA TELA -->
+
+    <section id="carta">
+
+        <div class="area-escrita">
+
+            <p class="texto-carta">
+                <span id="texto"></span>
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <script>
+
+        // Mensagem da carta
+
+        const mensagem =
+        "o rato roeu a roupa do rei de roma, a rainha com raiva rasgou o resto.";
+
+
+        // Abrir a carta
+
+        function abrirCarta() {
+
+            document.getElementById("inicio").style.display = "none";
+
+            document.getElementById("carta").style.display = "block";
+
+            escreverTexto();
+
+        }
+
+
+        // Animação de escrita
+
+        function escreverTexto() {
+
+            const elemento = document.getElementById("texto");
+
+            let contador = 0;
+
+            // Velocidade da escrita (40 milissegundos)
+            const velocidade = 40;
+
+            function escrever() {
+
+                if (contador < mensagem.length) {
+
+                    elemento.textContent += mensagem.charAt(contador);
+
+                    contador++;
+
+                    setTimeout(escrever, velocidade);
+
+                }
+
+            }
+
+            escrever();
+
+        }
+
+    </script>
+
+
+</body>
+</html>
